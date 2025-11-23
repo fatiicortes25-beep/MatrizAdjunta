@@ -37,26 +37,36 @@ public class Adjunta {
         return res;
     }
 
-    // Determinante por expansión de Laplace
     public static double determinante(double[][] m) {
         int n = m.length;
-
-        // Caso base n=1
         if (n == 1) return m[0][0];
-
-        // Caso base n=2
         if (n == 2)
             return m[0][0] * m[1][1] - m[0][1] * m[1][0];
 
-        // Caso general
         double det = 0;
         for (int j = 0; j < n; j++) {
             double[][] sub = menor(m, 0, j);
             double cofactor = ((j % 2 == 0) ? 1 : -1) * m[0][j] * determinante(sub);
             det += cofactor;
         }
-
         return det;
     }
+
+    // Matriz de cofactores
+    public static double[][] matrizCofactores(double[][] m) {
+        int n = m.length;
+        double[][] cof = new double[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                double[][] sub = menor(m, i, j);
+                double detSub = determinante(sub);
+                cof[i][j] = (((i + j) % 2 == 0) ? 1 : -1) * detSub;
+            }
+        }
+
+        return cof;
+    }
 }
+
 
