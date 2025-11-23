@@ -52,7 +52,6 @@ public class Adjunta {
         return det;
     }
 
-    // Matriz de cofactores
     public static double[][] matrizCofactores(double[][] m) {
         int n = m.length;
         double[][] cof = new double[n][n];
@@ -67,6 +66,28 @@ public class Adjunta {
 
         return cof;
     }
+
+    // Transponer matriz
+    public static double[][] transponer(double[][] m) {
+        int n = m.length;
+        double[][] t = new double[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                t[j][i] = m[i][j];
+            }
+        }
+
+        return t;
+    }
+
+    // Matriz adjunta
+    public static double[][] adjunta(double[][] m) {
+        if (!esCuadrada(m))
+            throw new IllegalArgumentException("La matriz debe ser cuadrada");
+        return transponer(matrizCofactores(m));
+    }
 }
+
 
 
